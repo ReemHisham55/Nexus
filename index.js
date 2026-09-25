@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    //  Mobile Menu Toggle
     const menuToggle = document.querySelector(".menu-toggle");
     const navLinks = document.querySelector(".nav-links");
 
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //  Skills Progress Animation
+    // Skills Progress Animation
     const animatedElements = document.querySelectorAll('.timeline-item, .skills-box, .project-card, .service-card, .reveal-element');
 
     const observer = new IntersectionObserver((entries, observerInstance) => {
@@ -55,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
     animatedElements.forEach(el => {
         observer.observe(el);
         
-       
         const rect = el.getBoundingClientRect();
         if (rect.top < window.innerHeight) {
             el.classList.add('show-element', 'show');
@@ -107,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    //  Animated Numbers Counter
+    // Animated Numbers Counter
     const statNumbers = document.querySelectorAll('.hero-stats h3');
 
     function runCounter() {
@@ -139,6 +137,36 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (statNumbers.length > 0) {
         runCounter();
+    }
+    
+    //Dark & Light Mode Toggle
+
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+        if (themeIcon) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+    }
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            
+            if (themeIcon) {
+                if (isLight) {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            }
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
     }
 
 });
